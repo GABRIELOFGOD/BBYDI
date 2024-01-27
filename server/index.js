@@ -5,7 +5,12 @@ const mySqlConnection = require('./config/mySql.config');
 // ============= CONFIGURATION ================= //
 require('dotenv').config();
 const app = express();
-mySqlConnection()
+app.use(express.json())
+
+mySqlConnection.con.connect((error) => {
+    if(error) return console.log('error connecting to the database', error);
+    console.log('Database connected successfully')
+})
 
 // ============== MIDDLEWARES =================== //
 const PORT = process.env.PORT || 3800;
